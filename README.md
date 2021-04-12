@@ -1,0 +1,2 @@
+# T9 Predictive Text 
+ A program that reads the text content of a file as words, creates a dictionary mapping the words to their frequency, creates a Trie of said words, and then use both ot the above to predict from user input numbers as text what words they may be trying to access. The prediction acesses most common words via frequency in a descending order. This project was written as part of Udacity's Intermediate Python Nanodegree.
