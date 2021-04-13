@@ -1,9 +1,11 @@
 # T9 Predictive Text 
  A program that reads the text content of a file as words, creates a dictionary mapping the words to their frequency, 
- creates a Trie of said words, and then use both ot the above to predict from user input numbers as text 
- what words they may be trying to access. The prediction accesses most common words via frequency in descending order.
+ creates a Trie of said words, and then uses both of the above to predict from user input numbers 
+ what words they may be trying to access. The prediction provides the most common words via frequency in descending order, including words that would use the user input numbers as a prefix within the word.
  This project was written as part of Udacity's Intermediate Python Nanodegree.
 
+ # How to Use
+ This program runs in the command line using python. In command line enter the project folder directory. Then using your OS appropriate command, run t9.py using python. The program will prompt the user for input.
 
 # Attribution
 The data set originally comes from [Google's NGram project](https://storage.googleapis.com/books/ngrams/books/datasetsv3.html), 
