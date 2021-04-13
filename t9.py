@@ -124,15 +124,15 @@ def predict_recursive(current_node):
     List
         A list of tuples containing potential words and their associated frequencies.  
     """
-        output = list()
-        for key in current_node.keys():
-            if isinstance(key, str):
-                output.append((key, current_node[key]))
-            else:
-                predicted_longer = predict_recursive(current_node[key])
-                for item in predicted_longer:
-                    output.append(item)
-        return output
+    output = list()
+    for key in current_node.keys():
+        if isinstance(key, str):
+            output.append((key, current_node[key]))
+        else:
+            predicted_longer = predict_recursive(current_node[key])
+            for item in predicted_longer:
+                output.append(item)
+    return output
 
 
 if __name__ == '__main__':
