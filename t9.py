@@ -17,7 +17,7 @@ def parse_content(content):
     PARAMETERS
     ----
     content : str
-        single string of word/frequency pairs seperated by \n between pairs and ' ' between word and freq
+        String of word/frequency pairs seperated by \n between pairs and ' ' between word and freq
 
     RETURNS
     ----
@@ -34,10 +34,26 @@ def parse_content(content):
 
     return data_dict
 
+
 def make_tree(data_dict):
+    """
+    Makes a trie using the t9 numerical values of the characters in the dict of words passed in
+
+    PARAMETERS:
+    ----
+    data_dict : dictionary
+        Dictionary of words and their associated frequency values
+
+    RETURNS:
+    ----
+    Dictionary
+        Nested dictionary taking the form of a Trie, using t9 numerical values instead of alphabetic characters
+
+    """
+
     tree = dict()
 
-    for word in data_dict.keys:
+    for word in data_dict.keys():
         current_node = tree
         for char in word:
             if char == "a" or char == "b" or char == "c":
@@ -57,16 +73,66 @@ def make_tree(data_dict):
             else:
                 num = 9
             
-            if char not in current_node:
-                current_node[char] = dict()
-            current_node = current_node[char]
-        current_node[word] =  data_dict[word]
-
+            if num not in current_node:
+                current_node[num] = dict()
+            current_node = current_node[num]
+        current_node[word] = data_dict[word]
 
     return tree
 
+
 def predict(tree, numbers):
-    return {}
+    """
+    Gives a list of predictions as to the desired text in order of frequency based on the t9 input. Will assume that the given number could be a prefix.
+
+    PARAMETERS:
+    ----
+    tree : dictionary
+        Nested dictionary taking the form of a trie using t9 numbers 
+
+    numbers : str
+        String of digits that represent a t9 input
+
+    RETURNS:
+    ----
+    List:
+        A sorted list of tuples containing the predicted words and their associated frequencies
+
+    """
+    current_node = tree
+    for num in numbers:
+        if int(num) in current_node:
+            current_node = current_node[int(num)]
+            print(num)
+        else:
+            return None
+    output = predict_recursive(current_node)
+    sorted_output = sorted(output, key=lambda item: item[1])
+    return sorted_output
+
+def predict_recursive(current_node):
+    """
+    Helper function to recurse though lower branches of the trie and find more potential words
+
+    PARAMETERS:
+    ----
+    current_node : dictionary
+        A dictionary to search for words or further nested dictionaries
+
+    RETURNS:
+    ----
+    List
+        A list of tuples containing potential words and their associated frequencies.  
+    """
+        output = list()
+        for key in current_node.keys():
+            if isinstance(key, str):
+                output.append((key, current_node[key]))
+            else:
+                predicted_longer = predict_recursive(current_node[key])
+                for item in predicted_longer:
+                    output.append(item)
+        return output
 
 
 if __name__ == '__main__':
