@@ -40,10 +40,27 @@ def make_tree(data_dict):
     for word in data_dict.keys:
         current_node = tree
         for char in word:
+            if char == "a" or char == "b" or char == "c":
+                num = 2
+            elif char == "d" or char == "e" or char == "f":
+                num = 3
+            elif char == "g" or char == "h" or char == "i":
+                num = 4
+            elif char == "j" or char == "k" or char == "l":
+                num = 5
+            elif char == "m" or char == "n" or char == "o":
+                num = 6
+            elif char == "p" or char == "q" or char == "r" or char == "s":
+                num = 7
+            elif char == "t" or char == "u" or char == "v":
+                num = 8
+            else:
+                num = 9
+            
             if char not in current_node:
                 current_node[char] = dict()
             current_node = current_node[char]
-        current_node["$"+word] =  data_dict[word]
+        current_node[word] =  data_dict[word]
 
 
     return tree
