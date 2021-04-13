@@ -1,22 +1,59 @@
 """
-Main
+Main Codeblock 
 """
 
+# Imports
 import helper
 
+# Global Constants
+DATA_FILE = 'ngrams-nk.txt'
 
+
+# Functions
 def parse_content(content):
-    return {}
+    """
+    Parses content from a string into a dict for use by other functions
 
-def make_tree(words):
-    return {}
+    PARAMETERS
+    ----
+    content : str
+        single string of word/frequency pairs seperated by \n between pairs and ' ' between word and freq
+
+    RETURNS
+    ----
+    Dictionary
+        Dict with word/frequency pairs.
+    """
+
+    data_dict = dict()
+
+    for pair in content.split('\n'):
+        # split one more time so that word and freq are seperate items
+        pair = pair.split()
+        data_dict[pair[0]] = pair[1]
+
+    return data_dict
+
+def make_tree(data_dict):
+    tree = dict()
+
+    for word in data_dict.keys:
+        current_node = tree
+        for char in word:
+            if char not in current_node:
+                current_node[char] = dict()
+            current_node = current_node[char]
+        current_node["$"+word] =  data_dict[word]
+
+
+    return tree
 
 def predict(tree, numbers):
     return {}
 
 
 if __name__ == '__main__':
-    content = helper.read_content(filename='ngrams-10k.txt')
+    content = helper.read_content(filename=DATA_FILE)
 
     # PART 1: Parsing a string into a dictionary.
     words = parse_content(content)
